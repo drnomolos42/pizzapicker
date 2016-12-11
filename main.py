@@ -11,7 +11,7 @@ class pizzaEater(object):
 
     def __init__(self, name):
         self.name = name
-        self.toppingPreference = []
+        self.toppingPreference = set()
 
     def hello(self):
         return "hello"
@@ -49,7 +49,7 @@ def PreferredToppingInput(EaterObject):
     if re.match('^\s*$', topping):
         print "End of list detected"
         return
-    EaterObject.toppingPreference.append(topping)
+    EaterObject.toppingPreference.add(topping)
     PreferredToppingInput(EaterObject)
     
 
@@ -71,6 +71,14 @@ def OrderList():
         for topping in OrdererObject.toppingPreference:
             print topping
         print ""
+
+def OrderCompletor():
+    TopSet = set()
+    for EaterObject in ObjectList:
+        TopSet = TopSet.union(EaterObject.toppingPreference)
+    for topping in TopSet:
+        print topping
+        
     
 def main():
     topselector = topinput()
@@ -78,6 +86,8 @@ def main():
         EaterInput()
     if topselector == 2:
         OrderList()
+    if topselector == 3:
+        OrderCompletor()
     main()
 
 if __name__ == "__main__":
